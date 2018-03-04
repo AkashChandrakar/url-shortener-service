@@ -2,7 +2,7 @@
 ---
 
 ### required
-* As a user I am able to provide a long url(600 chars) and get a short url back pointing to the original url.
+* As a user I am able to provide a long url(600 chars) and get a short url back, pointing to the original url.
 * As a user I can type in the short url to go to my original url.
 * As a user I can specify how long the url must be persisted.
 
