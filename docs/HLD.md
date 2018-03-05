@@ -41,4 +41,4 @@
 
 ---
 
-![HLD](url-shortener-service.jpg)
+![HLD](../images/url-shortener-service.jpg)
