@@ -3,4 +3,4 @@
 ---
 
 ### UML Diagram
-[UML Class Diagram](../images/url-shortner-service-uml-class-diagram.jpg)
+![UML Class Diagram](../images/url-shortner-service-uml-class-diagram.jpg)
