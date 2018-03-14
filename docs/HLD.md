@@ -1,4 +1,4 @@
-# High level design (how system does what it is suppose to do)
+# High level design (how system does what it is suppose to do and how all components fit togther)
 
 ---
 
@@ -28,16 +28,23 @@
         *  if node goes down the persisted stored in that node also goes away.
     * we can use a datastore to persist the key value.
 
-#### characterstics of datastore
+### characterstics of datastore (don't try to choose any X datastore instead characterize it)
 * key value store
 * highly available
 * should maintain multiple replica
 * should be extensible, to store analytical data latter
 * [optional] should prevent duplicate key insertion
 
+
+### High level API's
+* get(short-url): returns the actual original url if present otherwise error.
+* post(original-url): returns a shorten version of original url.
+
+### Solution
+* 
+
 ### challenges
 * how do we ensure that multiple nodes generate a single unique global shorten url.
-* 
 
 ---
 
