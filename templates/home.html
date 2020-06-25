@@ -1,0 +1,29 @@
+<script>
+    function getShortenUrl() {
+        const longUrl = document.getElementById("longUrl").value;
+        const uri = `/shorten?longUrl=${longUrl}`;
+        fetch(uri)
+            .then(response => response.text())
+            .then(shortenUrl => {
+                const aElement = document.getElementById("shortenUrl");
+                aElement.style.display = "block";
+                aElement.href = shortenUrl;
+                aElement.innerText = shortenUrl;
+            })
+            .catch(error => {
+                console.log("error");
+            });
+    }
+</script>
+
+<main>
+    <h1>URL Shortener</h1>
+    <input type="text" id="longUrl" placeholder="Enter URL here">
+    <div class="buttons">
+        <button id="shorten" onclick="getShortenUrl()">Shorten</button>
+    </div>
+    <div>
+        <a href="https://google.com" id="shortenUrl" style="display: none;">https://google.com</a>
+    </div>
+    <section id="section"></section>
+</main>
