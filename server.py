@@ -1,25 +1,18 @@
-import json
-import os
 import random
 import string
 
 from flask import Flask
+from flask import redirect
 from flask import render_template
 from flask import request
 
+from cassandra_client import CassandraConfig
 from cassandra_client import UrlDao
 
 app = Flask(__name__)
 APP_URL = 'https://common-shrew.herokuapp.com/'
 
-cassandra_hosts = json.loads(os.environ.get('CASSANDRA_HOSTS', '["127.0.0.1"]'))
-cassandra_port = int(os.environ.get('CASSANDRA_PORT', '9042'))
-cassandra_keyspace = os.environ.get('CASSANDRA_KEYSPACE', 'urlshortner')
-cassandra_username = os.environ.get('CASSANDRA_USERNAME', 'cassandra')
-cassandra_password = os.environ.get('CASSANDRA_PASSWORD', 'cassandra')
-
-url_dao = UrlDao(cassandra_hosts, cassandra_port, cassandra_keyspace,
-                 cassandra_username, cassandra_password)
+url_dao = UrlDao(CassandraConfig)
 
 
 def gen_random_string(length=9):
@@ -30,11 +23,23 @@ def gen_random_string(length=9):
 
 @app.route('/', methods=['GET'])
 def home():
+    print('Get homepage')
     return render_template('home.html')
 
 
 @app.route('/shorten', methods=['GET'])
 def shorten_url():
-    short_url = gen_random_string()
-    url_dao.save_long_url(long_url=request.args.get('longUrl'), short_url=short_url)
-    return APP_URL + short_url
+    long_url = request.args.get('longUrl')
+    print('Shorten long url: {}'.format(long_url))
+    short_url_id = gen_random_string()
+    url_dao.save_long_url(long_url=long_url, short_url_id=short_url_id)
+    return APP_URL + short_url_id
+
+
+@app.route('/<short_url_id>', methods=['GET'])
+def get_long_url(short_url_id):
+    print('Fetch long url for short_url_id: {}'.format(short_url_id))
+    long_url = url_dao.get_long_url(short_url_id)
+    if long_url is None:
+        return render_template('404.html')
+    return redirect(long_url, 301)

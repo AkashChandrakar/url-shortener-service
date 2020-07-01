@@ -28,5 +28,5 @@ python manage.py migrate
 
 Run the server
 ```
-python manage.py runserver
+FLASK_APP=server.py flask run
 ```
