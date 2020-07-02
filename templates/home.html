@@ -5,25 +5,30 @@
         fetch(uri)
             .then(response => response.text())
             .then(shortenUrl => {
-                const aElement = document.getElementById("shortenUrl");
-                aElement.style.display = "block";
-                aElement.href = shortenUrl;
-                aElement.innerText = shortenUrl;
+                if (shortenUrl.length != 0) {
+                    const aElement = document.getElementById("shortenUrl");
+                    aElement.style.display = "block";
+                    aElement.href = shortenUrl;
+                    aElement.innerText = shortenUrl;
+                }
             })
             .catch(error => {
                 console.log("error");
             });
     }
 </script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
 
 <main>
-    <h1>URL Shortener</h1>
-    <input type="text" id="longUrl" placeholder="Enter URL here">
-    <div class="buttons">
-        <button id="shorten" onclick="getShortenUrl()">Shorten</button>
+    <div class="bodyMain">
+        <div class="bodyContainer">
+            <h1>URL Shortener</h1>
+            <input type="text" id="longUrl" placeholder="Enter URL here">
+            <button id="shorten" onclick="getShortenUrl()">Shorten</button>
+            <div>
+                <a href="https://common-shrew.herokuapp.com" id="shortenUrl" style="display: none;">https://common-shrew.herokuapp.com/</a>
+            </div>
+            <section id="section"></section>
+        </div>
     </div>
-    <div>
-        <a href="https://google.com" id="shortenUrl" style="display: none;">https://google.com</a>
-    </div>
-    <section id="section"></section>
 </main>

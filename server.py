@@ -30,6 +30,8 @@ def home():
 @app.route('/shorten', methods=['GET'])
 def shorten_url():
     long_url = request.args.get('longUrl')
+    if not long_url or len(long_url) == 0:
+        return ''
     print('Shorten long url: {}'.format(long_url))
     short_url_id = gen_random_string()
     url_dao.save_long_url(long_url=long_url, short_url_id=short_url_id)
@@ -38,6 +40,8 @@ def shorten_url():
 
 @app.route('/<short_url_id>', methods=['GET'])
 def get_long_url(short_url_id):
+    if short_url_id == 'favicon.ico':
+        return ''
     print('Fetch long url for short_url_id: {}'.format(short_url_id))
     long_url = url_dao.get_long_url(short_url_id)
     if long_url is None:
