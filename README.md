@@ -1,7 +1,6 @@
-URL shortener service.
+# URL shortener service https://common-shrew.herokuapp.com
 
-
-# Build instructions
+## Build instructions
 
 First, make sure to have virtualenv installed. If it isn't installed already, this should do the trick:
 ```
